@@ -1,6 +1,5 @@
 package org.altbeacon.beacon.service.scanner;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
@@ -9,7 +8,6 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.util.Log;
-import org.altbeacon.beacon.BeaconParser;
 
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.service.DetectionTracker;
@@ -79,7 +77,7 @@ public class CycledLeScannerForLollipop extends CycledLeScanner {
     protected boolean deferScanIfNeeded() {
         long millisecondsUntilStart = mNextScanCycleStartTime - System.currentTimeMillis();
         if (millisecondsUntilStart > 0) {
-            if (true) {
+            if (getBluetoothAdapter().isEnabled()) {
                 long secsSinceLastDetection = System.currentTimeMillis() -
                         DetectionTracker.getInstance().getLastDetectionTime();
                 // If we have seen a device recently
